@@ -35,7 +35,7 @@ Clonez le repository Git et installez les dépendances :
 
 ```bash
 # Cloner le repository
-git clone https://github.com/<votre-repo>/AstraMed_chatbot.git
+git clone[ https://github.com/<votre-repo>/AstraMed_chatbot.git](https://github.com/doniatekaya/AstraMed_Chatbot/tree/main)
 cd AstraMed_chatbot
 
 # Créer un environnement virtuel
