@@ -122,7 +122,7 @@ AstraMed_chatbot/
 ```
 
 ---
-Resultat retrieve.py: \\
+# Resultat retrieve.py: 
 <img width="689" alt="image" src="https://github.com/user-attachments/assets/735eb081-56fc-4e8c-ad9f-4328b5a86f7e" />
 <img width="254" alt="image" src="https://github.com/user-attachments/assets/6affb11a-0be7-43fa-8a08-88650d7f4e1a" />
 
