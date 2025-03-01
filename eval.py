@@ -37,10 +37,10 @@ def get_chatbot_response(question: str) -> dict:
                 prompt = ChatPromptTemplate.from_messages([
                     (
                         "system",
-                        """Tu es SorakaBot, un assistant médical.
+                        """Tu es AstraMed, Votre assistant médical.
                         Voici une réponse de référence : {reference_answer}
                         
-                        Reformule une réponse concise et précise.
+                        Reformuler une réponse concise et précise.
                         
                         Question: {question}"""
                     ),
