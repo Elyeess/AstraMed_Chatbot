@@ -3,88 +3,89 @@ import requests
 from streamlit_lottie import st_lottie
 import json
 
-# 🚀 Configuration de l'application
-title = "AstraMed - Votre Assistant IA Médical"
-primary_color = "#1A237E"  # Bleu marine
-secondary_color = "#90CAF9"  # Bleu ciel
-HOST = "http://127.0.0.1:8181"  # API locale
+# Configuration de la page
+st.set_page_config(
+    page_title="Astramed - Assistant Médical",
+    page_icon="🏥",
+)
 
-# Fonction pour charger une animation Lottie
-def load_lottie_url(url: str):
-    try:
-        r = requests.get(url)
-        if r.status_code != 200:
-            return None
-        return r.json()
-    except:
-        return None
+# Configuration de l'application
+title = "Astramed - Votre Assistant IA Médical"
+primary_color = "#1A237E"
+secondary_color = "#90CAF9"
+# HOST = "http://127.0.0.1:8181"
+HOST = "https://elyeschatapi-57777724309.europe-west1.run.app"
 
-# 🏥 Animation d'accueil
-lottie_medical = load_lottie_url("")
-
-# 🎨 CSS Personnalisé
-st.markdown(f"""
+# --- CSS personnalisé ---
+st.markdown("""
     <style>
-    .stSidebar {{background-color: {secondary_color};}}
-    .stButton > button {{
-        background-color: {primary_color};
-        color: white;
-        border-radius: 20px;
-        padding: 10px 24px;
-        font-weight: bold;
-    }}
-    .stButton > button:hover {{
-        background-color: #283593;
-    }}
-    .chat-message {{
-        padding: 20px;
-        border-radius: 10px;
-        margin: 10px 0px;
-    }}
-    .chat-message.user {{background-color: #E3F2FD;}}
-    .chat-message.bot {{background-color: #F3E5F5;}}
-    .big-font {{font-size: 2.5rem !important; color: {primary_color};}}
+    .lottie-container {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+    .features-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
     </style>
-    """, unsafe_allow_html=True)
+""", unsafe_allow_html=True)
 
-# 📌 Initialisation de la navigation
+# --- Fonction pour charger Lottie ---
+def load_lottie_file(filepath: str):
+    with open(filepath, "r") as f:
+        return json.load(f)
+
+lottie_animation = load_lottie_file("Animation - 18.json")
+
+# --- Gestion de la navigation ---
 if 'page' not in st.session_state:
     st.session_state.page = 'home'
 
+# === PAGE D'ACCUEIL ===
 if st.session_state.page == 'home':
-    st.markdown(f"<h1 class='big-font' style='text-align:center;'>{title}</h1>", unsafe_allow_html=True)
-    if lottie_medical:
-        st_lottie(lottie_medical, height=350)
-   
-    st.markdown("### 🌟 Fonctionnalités")
-    st.write("✅ Réponses médicales basées sur l'IA")
-    st.write("✅ Recherche d'informations fiables avec source")
-    st.write("✅ Traduction automatique FR ↔ EN")
-    st.write("✅ Gestion de l'historique de conversation")
+    st.markdown(f"<h1 style='text-align:center; color:{secondary_color};'>{title}</h1>", unsafe_allow_html=True)
+    
+    col1, col2 = st.columns([0.8, 1])
 
-    if st.button("🩺 Commencer la consultation"):
-        st.session_state.page = 'chat'
-        st.rerun()
+    with col1:
+        st_lottie(lottie_animation, width=300, height=300, key="animation", speed=1)
 
+    with col2:
+        st.markdown("### 👨‍⚕ Fonctionnalités")
+        st.write("✅ Réponses médicales basées sur l'IA")
+        st.write("✅ Recherche d'informations fiables avec source")
+        st.write("✅ Traduction automatique FR ↔ EN")
+        st.write("✅ Gestion de l'historique de conversation")
+
+        if st.button("🩺 Commencer la consultation"):
+            st.session_state.page = 'chat'
+            st.rerun()
+# === PAGE DE CHAT ===
 elif st.session_state.page == 'chat':
-    if st.button("🏠 Retour à l'accueil"):
+    if st.button("🏠 Retour à l'accueil"):
         st.session_state.page = 'home'
         st.rerun()
    
-    st.title("💬 AstraMed - Chatbot Médical IA")
+    st.title("🩺 Astramed - Chatbot Médical IA")
    
     with st.sidebar:
-        st.markdown("### ⚙️ Paramètres")
-        temperature = st.slider("Créativité des réponses", 0.0, 1.0, 0.3, 0.1)
-        similarity_threshold = st.slider("Seuil de similarité RAG", 0.0, 1.0, 0.50, 0.05)
-        language = st.selectbox("Langue", ["Francais", "English", "Arabic"])
+        st.markdown("### ⚙ Paramètres")
+        temperature = st.slider("Créativité des réponses", 0.0, 1.0, 0.3, 0.1)
+        similarity_threshold = st.slider("Seuil de similarité RAG", 0.0, 1.0, 0.50, 0.05)
+        language = st.selectbox("Langue", ["Français", "English", "Arabic"])
    
     if "messages" not in st.session_state:
-        st.session_state["messages"] = [{"role": "assistant", "content": "Bonjour ! Comment puis-je vous aider aujourd’hui ?"}]
+        st.session_state["messages"] = [{
+            "role": "assistant",
+            "content": "Bonjour ! Comment puis-je vous aider aujourd’hui ?"
+        }]
    
-    for message in st.session_state.messages:
-        avatar = "🏥" if message["role"] == "assistant" else "👤"
-        st.chat_message(message["role"], avatar=avatar).write(message["content"])
+    for msg in st.session_state["messages"]:
+        avatar = "🏥" if msg["role"] == "assistant" else "👤"
+        st.chat_message(msg["role"], avatar=avatar).write(msg["content"])
    
     if question := st.chat_input("Posez votre question ici..."):
         st.session_state["messages"].append({"role": "user", "content": question})
@@ -105,44 +106,48 @@ elif st.session_state.page == 'chat':
            
             if response.status_code == 200:
                 response_data = response.json()
-                similar_answers = response_data.get("answers", [])[:3]  # Prendre les 3 meilleures réponses
+                print(f"[DEBUG Streamlit] Réponse reçue : {response_data}")  # Log ajouté
+                response_type = response_data.get("type", "unknown")
                 generated_response = response_data.get("generated_response", "Erreur lors de la reformulation.")
+                similar_answers = response_data.get("answers", [])[:3]
 
-                if not similar_answers:
-                    st.error("❌ Aucune source pertinente trouvée.")
+                if response_type == "medical" and not similar_answers:
+                    st.error("❌ Aucune source pertinente trouvée.")
                 else:
-                    st.markdown("### 📚 **Sources les plus pertinentes :**")
-                    for i, answer_data in enumerate(similar_answers):
-                        source = answer_data.get("metadata", {}).get("source", "Inconnue")
-                        similarity_score = answer_data.get("metadata", {}).get("similarity_score", "N/A")
-                        st.write(f"🏥 **Source {i+1}:** {source} (Similarité: {similarity_score})")
+                    if response_type == "medical":
+                        st.markdown("### 📚 Sources les plus pertinentes :")
+                        for i, ans_data in enumerate(similar_answers):
+                            source = ans_data.get("metadata", {}).get("source", "Inconnue")
+                            score = ans_data.get("metadata", {}).get("similarity_score", "N/A")
+                            resp_text = ans_data.get("message", "Réponse non disponible.")
+                            with st.expander(f"🏥 Source {i+1}: {source} (Similarité: {score})"):
+                                st.markdown(f"🔹 Réponse {i+1} : {resp_text}")
 
-                    # 📌 **Affichage des réponses des 3 sources**
-                    st.markdown("### 📄 **Réponses des 3 sources sélectionnées :**")
-                    for i, answer_data in enumerate(similar_answers):
-                        st.write(f"🔹 **Réponse {i+1} :** {answer_data.get('message', 'Réponse non disponible.')}")
-
-                    # 📌 **Affichage de la réponse générée à partir des sources**
-                    st.markdown("### 🤖 **Réponse Générée :**")
+                    st.markdown("### 🩺 Réponse :")
                     st.chat_message("assistant", avatar="🏥").write(generated_response)
-                    # 📌 Ajout du feedback utilisateur après la réponse générée
-                    st.markdown("### 📝 **Votre avis compte !**")
+                    
+                    st.session_state["messages"].append({
+                        "role": "assistant",
+                        "content": generated_response
+                    })
+                    
+                    st.markdown("### 📝 Votre avis compte !")
                     col1, col2 = st.columns(2)
                     with col1:
-                        if st.button("👍 Bonne réponse"):
+                        if st.button("👍 Bonne réponse"):
                             feedback_data = {
                                 "session_id": "test-session",
                                 "question": question,
                                 "rating": 1,
                                 "comments": ""
-                                }
-                            response = requests.post(f"{HOST}/feedback", json=feedback_data)
-                            if response.status_code == 200:
+                            }
+                            fb_response = requests.post(f"{HOST}/feedback", json=feedback_data)
+                            if fb_response.status_code == 200:
                                 st.success("✅ Merci pour votre feedback !")
 
                     with col2:
-                        if st.button("👎 Mauvaise réponse"):
-                            comments = st.text_input("Pourquoi la réponse n'est pas satisfaisante ? (optionnel)")
+                        if st.button("👎 Mauvaise réponse"):
+                            comments = st.text_input("Pourquoi la réponse n'est pas satisfaisante ? (optionnel)")
                             if st.button("📤 Envoyer Feedback"):
                                 feedback_data = {
                                     "session_id": "test-session",
@@ -150,13 +155,9 @@ elif st.session_state.page == 'chat':
                                     "rating": 0,
                                     "comments": comments
                                 }
-                                response = requests.post(f"{HOST}/feedback", json=feedback_data)
-                                if response.status_code == 200:
-                                    st.success("✅ Feedback enregistré, merci !")
-
+                                fb_response = requests.post(f"{HOST}/feedback", json=feedback_data)
+                                if fb_response.status_code == 200:
+                                    st.success("✅ Feedback enregistré, merci !")
 
             else:
                 st.error(f"❌ Erreur : {response.status_code} - {response.text}")
-
-
-
