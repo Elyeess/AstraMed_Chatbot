@@ -1,17 +1,22 @@
-FROM python:3.11
+# Utiliser une image Python officielle légère
+FROM python:3.11-slim
 
+# Définir le répertoire de travail
 WORKDIR /app
 
-ENV PYTHONUNBUFFERED True
+# Variables d'environnement pour éviter les buffers et optimiser l'exécution
+ENV PYTHONUNBUFFERED=1
+ENV PORT=8501
 
-COPY requirements.txt /requirements.txt
+# Copier le fichier requirements.txt et installer les dépendances
+COPY requirements.txt /app/requirements.txt
+RUN pip install --no-cache-dir --upgrade -r /app/requirements.txt
 
-RUN pip install --no-cache-dir --upgrade -r /requirements.txt
+# Copier le reste des fichiers de l'application
+COPY . /app
 
-ENV PORT=8080
+# Exposer le port utilisé par Streamlit
+EXPOSE 8501
 
-EXPOSE ${PORT}
-
-COPY . ./app
-
-ENTRYPOINT streamlit run --server.port ${PORT} app/app.py –-server.address=0.0.0.0
+# Commande pour lancer Streamlit
+CMD ["streamlit", "run", "app.py", "--server.port=8501", "--server.address=0.0.0.0"]
