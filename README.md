@@ -1,5 +1,6 @@
 # AstraMed Chatbot
 <img width="959" alt="image" src="https://github.com/user-attachments/assets/a01d5d8b-08db-4870-b17b-808f86ada86a" />
+<img width="941" alt="image" src="https://github.com/user-attachments/assets/3643713c-cb1f-4fa7-9823-7e64bc63002b" />
 
 
 AstraMed est un chatbot d'assistance médicale basé sur l'intelligence artificielle, conçu pour fournir des réponses fiables aux questions médicales des utilisateurs. Il utilise un système de recherche avancé combinant Google Cloud Storage, PostgreSQL Vector, LangChain RAG, et Vertex AI pour générer des réponses pertinentes.
