@@ -109,13 +109,6 @@ docker build -t astramed-api -f Dockerfile_api .
 docker run -p 8181:8181 astramed-api
 ```
 
-### Déploiement de l'interface utilisateur
-
-```bash
-docker build -t astramed-ui -f Dockerfile .
-docker run -p 8501:8080 astramed-ui
-```
-
 ## 📖 Bonnes Pratiques de Code
 
 AstraMed respecte les conventions de code avec **Flake8** et **PyLint**. Pour analyser votre code :
