@@ -7,8 +7,9 @@ AstraMed est un chatbot intelligent basé sur l'intelligence artificielle, conç
 ## ✨ Fonctionnalités Clés
 
 - 🔍 **Recherche Sémantique Avancée** : Utilisation de vecteurs pour rechercher les questions médicales les plus pertinentes.
-- 📚 **Base de Connaissances Structurée** : Intégration avec PostgreSQL + pgvector pour stocker les embeddings et les métadonnées.
-- 🤖 **Génération Augmentée par Récupération (RAG)** : Amélioration de la qualité des réponses en combinant recherche et IA.
+- 📚 **Base de Connaissances Structurée** : Intégration avec PostgreSQL + pgvector pour stocker les embeddings(**Textembedding-geko**) et les métadonnées.
+- 🤖 **ZeroShotAgent**: Un agent dans LangChain
+- 🤖 **Génération Augmentée par Récupération (RAG)** : Amélioration de la qualité des réponses en combinant recherche et IA (utilisation de zero one shot agent).
 - ⚡ **FastAPI & Streamlit** : API REST performante et interface utilisateur interactive.
 - 🌍 **Support Multilingue** : Capacité de traduction en Français, Anglais et Arabe.
 - 🏆 **Affichage des Sources & Scores de Confiance** : Transparence des références utilisées.
