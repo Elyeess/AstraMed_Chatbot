@@ -1,7 +1,3 @@
-# Streamlit
-streamlit
-streamlit-lottie
-# API
 fastapi
 pydantic
 uvicorn
@@ -12,9 +8,9 @@ langchain-google-cloud-sql-pg
 langchain-google-vertexai
 langchain_community
 google-cloud-storage
-unstructured
 langchain
-langchain_unstructured
-
-libmagic
-asyncio
+langchain-core
+streamlit
+streamlit-lottie
+sqlalchemy>=2.0.0  # Requis par langchain-google-cloud-sql-pg
+asyncio  # Pour les tâches asynchrones
