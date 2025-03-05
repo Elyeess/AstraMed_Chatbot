@@ -72,14 +72,20 @@ pip install -r requirements.txt
 Créez un fichier `.env` à la racine du projet et ajoutez les informations suivantes :
 
 ```ini
-DB_PASSWORD=<votre_password>
-API_KEY=<votre_api_key>
-PROJECT_ID=<votre_project_id>
-INSTANCE=<nom_instance>
-REGION=<votre_region>
-DATABASE=<nom_database>
-DB_USER=<utilisateur>
-TABLE_NAME=<nom_table>
+DB_PASSWORD=
+API_KEY=
+```
+### Configuration des Variables config
+
+Créez un fichier `config.py` à la racine du projet et ajoutez les informations suivantes :
+
+```ini
+PROJECT_ID = ""
+INSTANCE = ""
+REGION = ""
+DATABASE = ""
+DB_USER = ""
+TABLE_NAME = ""
 ```
 
 ## 🛠️ Utilisation
