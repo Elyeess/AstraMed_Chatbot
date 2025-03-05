@@ -16,12 +16,12 @@ AstraMed est un chatbot intelligent basé sur l'intelligence artificielle, conç
 
 ## 🔗 Architecture
 
-Les composants sont connectés comme suit :
+Les composants sont interconnectés de la manière suivante :
 
-1. **Cloud Storage** alimente **PostgreSQL** avec les données.
-2. **FastAPI** communique avec **LangChain** et **PostgreSQL**.
-3. **Vertex AI** fournit les capacités d'IA.
-4. **Streamlit** propose une interface utilisateur connectée à **FastAPI**.
+1. **Cloud Storage** fournit les données à **PostgreSQL**.
+2. **FastAPI** interagit avec **LangChain** et **PostgreSQL**.
+3. **Vertex AI** assure les fonctionnalités d'intelligence artificielle.
+4. **Streamlit** offre une interface utilisateur reliée à **FastAPI**.
 
 ## 📁 Structure du Projet
 
