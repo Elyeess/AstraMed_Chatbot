@@ -108,12 +108,25 @@ L'interface utilisateur sera disponible sur [http://localhost:8501](http://local
 
 ## 🛢️ Déploiement avec Docker
 
-### Déploiement de l'API
+### Déploiement de l'interface utilisateur
 
 ```bash
-docker build -t astramed-api -f Dockerfile_api .
-docker run -p 8181:8181 astramed-api
+docker buildx build --platform linux/amd64 --push -t europe-west1-docker.pkg.dev/my-dproject-452220/elyess/chatstreamlit:latest -f Dockerfile .
+
+
+gcloud run deploy elyes-streamlit `
+    --image=europe-west1-docker.pkg.dev/my-dproject-452220/elyess/chatstreamlit:latest `
+    --platform=managed `
+    --region=europe-west1 `
+    --allow-unauthenticated `
+    --port 8501
 ```
+
+### Évaluation du Chatbot
+AstraMed a été testé sur plusieurs métriques :
+Pertinence moyenne : 0.8798
+Temps de réponse moyen : 0.1018 secondes
+
 
 ## 📖 Bonnes Pratiques de Code
 
