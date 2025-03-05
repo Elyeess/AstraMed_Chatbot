@@ -1,34 +1,54 @@
-# AstraMed Chatbot
-<img width="595" alt="image" src="https://github.com/user-attachments/assets/52522104-b6ff-4828-b455-cf3190b26e56" />
+# 🏥 AstraMed - Chatbot d'Assistance Médicale avec RAG & Cloud AI 🚀
+<img width="595" alt="image" src="https://github.com/user-attachments/assets/0140af8a-fe64-4095-baee-1fd673c5c79d" />
 <img width="941" alt="image" src="https://github.com/user-attachments/assets/3643713c-cb1f-4fa7-9823-7e64bc63002b" />
 
+AstraMed est un chatbot intelligent basé sur l'intelligence artificielle, conçu pour fournir des réponses fiables aux questions médicales des utilisateurs. Il intègre un système avancé de Retrieval-Augmented Generation (RAG) combinant LangChain, Vertex AI, PostgreSQL Vector, et Google Cloud Storage, garantissant ainsi des réponses pertinentes et basées sur des sources vérifiées.
 
-AstraMed est un chatbot d'assistance médicale basé sur l'intelligence artificielle, conçu pour fournir des réponses fiables aux questions médicales des utilisateurs. Il utilise un système de recherche avancé combinant Google Cloud Storage, PostgreSQL Vector, LangChain RAG, et Vertex AI pour générer des réponses pertinentes.
+## ✨ Fonctionnalités Clés
 
----
+- 🔍 **Recherche Sémantique Avancée** : Utilisation de vecteurs pour rechercher les questions médicales les plus pertinentes.
+- 📚 **Base de Connaissances Structurée** : Intégration avec PostgreSQL + pgvector pour stocker les embeddings et les métadonnées.
+- 🤖 **Génération Augmentée par Récupération (RAG)** : Amélioration de la qualité des réponses en combinant recherche et IA.
+- ⚡ **FastAPI & Streamlit** : API REST performante et interface utilisateur interactive.
+- 🌍 **Support Multilingue** : Capacité de traduction en Français, Anglais et Arabe.
+- 🏆 **Affichage des Sources & Scores de Confiance** : Transparence des références utilisées.
+- 🛡 **Respect des Normes de Confidentialité** : Aucune donnée utilisateur n'est stockée de manière permanente.
 
-## 🎨 Aperçu du projet
+## 🔗 Architecture
 
+Les composants sont connectés comme suit :
 
+1. **Cloud Storage** alimente **PostgreSQL** avec les données.
+2. **FastAPI** communique avec **LangChain** et **PostgreSQL**.
+3. **Vertex AI** fournit les capacités d'IA.
+4. **Streamlit** propose une interface utilisateur connectée à **FastAPI**.
 
-Le projet est structuré autour des composants suivants :
+## 📁 Structure du Projet
 
-- **Google Cloud Storage** : Stockage des données médicales sous forme de fichiers CSV.
-- **PostgreSQL + Vector** : Base de données vectorielle pour la recherche de similarité.
-- **LangChain RAG** : Génération augmentée par récupération (RAG) pour améliorer les réponses du chatbot.
-- **Vertex AI** : Utilisation de modèles avancés pour l'analyse et la reformulation des réponses.
-- **FastAPI** : API backend pour servir les réponses du chatbot.
-- **Streamlit** : Interface utilisateur intuitive pour interagir avec le chatbot.
+```
+AstraMed_chatbot/
+│── downloaded_files/
+│   └── medquadd.csv  # Données d'entraînement
+├── api.py                 # Backend FastAPI
+├── app.py                 # Interface utilisateur Streamlit
+├── config.py              # Configuration des variables cloud
+├── ingest.py              # Chargement et indexation des données
+├── retrieve.py            # Récupération des documents pertinents
+├── eval.py                # Évaluation du chatbot
+├── utils_eval.py          # Fonctions d'évaluation
+├── requirements.txt       # Liste des dépendances Python
+├── Dockerfile             # Dockerfile pour Streamlit
+├── Dockerfile_api         # Dockerfile pour FastAPI
+├── .env                   # Variables d'environnement (non versionnées)
+```
 
----
-
-## 🔧 Installation et Configuration
+## 🔧 Installation & Configuration
 
 ### Prérequis
 
-1. **Python 3.11+**
-2. **Docker (optionnel pour le déploiement)**
-3. **Accès à Google Cloud Storage & Cloud SQL**
+- Python 3.11+
+- Docker (optionnel pour le déploiement)
+- Accès à Google Cloud Storage & Cloud SQL
 
 ### Installation
 
@@ -36,12 +56,12 @@ Clonez le repository Git et installez les dépendances :
 
 ```bash
 # Cloner le repository
-git clone[ https://github.com/<votre-repo>/AstraMed_chatbot.git](https://github.com/doniatekaya/AstraMed_Chatbot/tree/main)
+git clone https://github.com/<votre-repo>/AstraMed_chatbot.git
 cd AstraMed_chatbot
 
 # Créer un environnement virtuel
-python -m venv venv
-source venv/bin/activate  # Sous Windows: venv\Scripts\activate
+conda create --name (env_name) python=3.10
+conda activate (env_name)
 
 # Installer les dépendances
 pip install -r requirements.txt
@@ -62,8 +82,6 @@ DB_USER=<utilisateur>
 TABLE_NAME=<nom_table>
 ```
 
----
-
 ## 🛠️ Utilisation
 
 ### Lancer l'API avec FastAPI
@@ -72,7 +90,7 @@ TABLE_NAME=<nom_table>
 uvicorn api:app --host 0.0.0.0 --port 8181
 ```
 
-L'API sera accessible sur `http://127.0.0.1:8181`
+L'API sera accessible sur [http://127.0.0.1:8181](http://127.0.0.1:8181)
 
 ### Lancer l'interface utilisateur Streamlit
 
@@ -80,9 +98,7 @@ L'API sera accessible sur `http://127.0.0.1:8181`
 streamlit run app.py
 ```
 
-L'interface utilisateur sera disponible sur `http://localhost:8501`
-
----
+L'interface utilisateur sera disponible sur [http://localhost:8501](http://localhost:8501)
 
 ## 🛢️ Déploiement avec Docker
 
@@ -100,33 +116,6 @@ docker build -t astramed-ui -f Dockerfile .
 docker run -p 8501:8080 astramed-ui
 ```
 
----
-
-## 🔬 Structure du Repository
-
-```plaintext
-AstraMed_chatbot/
-│── downloaded_files/
-│   └── medquadd.csv  # Données d'entraînement
-│── __pycache__/       # Cache Python
-│── api.py             # Backend FastAPI
-│── app.py             # Interface Streamlit
-│── config.py          # Variables de configuration
-│── ingest.py          # Connexion Cloud SQL et stockage vectoriel
-│── retrieve.py        # Récupération des documents pertinents
-│── eval.py            # Évaluation du chatbot
-│── utils_eval.py      # Fonctions d'évaluation
-│── requirements.txt   # Dépendances Python
-│── Dockerfile         # Fichier Docker pour Streamlit
-│── Dockerfile_api     # Fichier Docker pour l'API
-│── .env               # Variables d'environnement
-```
-
----
-# Resultat retrieve.py: 
-<img width="695" alt="image" src="https://github.com/user-attachments/assets/c52b5d15-fd28-4afe-8377-71447fb8fa28" />
-
-
 ## 📖 Bonnes Pratiques de Code
 
 AstraMed respecte les conventions de code avec **Flake8** et **PyLint**. Pour analyser votre code :
@@ -142,8 +131,6 @@ Pour autoformater le code avec **Autopep8** :
 autopep8 --in-place --aggressive --aggressive *.py
 ```
 
----
-
 ## 🌟 Fonctionnalités Principales
 
 - 🔍 **Recherche de documents médicaux** : Basée sur la similarité vectorielle.
@@ -152,11 +139,7 @@ autopep8 --in-place --aggressive --aggressive *.py
 - 📱 **Interface utilisateur moderne** : Streamlit.
 - 🔢 **Évaluation des performances** : Métriques de similarité et pertinence.
 
----
-
 ## 💪 Contributeurs
 
 Ce projet a été développé par **Donia Tekaya & Mohamed Elyes Maalel**.
-
-
 
