@@ -154,5 +154,5 @@ autopep8 --in-place --aggressive --aggressive *.py
 
 ## ✅💪 Contributeurs
 
-Ce projet a été développé par ** Mohamed Elyes Maalel& Donia Tekaya **.
+Ce projet a été développé par **Mohamed Elyes Maalel& Donia Tekaya**.
 
