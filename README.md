@@ -152,7 +152,7 @@ autopep8 --in-place --aggressive --aggressive *.py
 - 📱 **Interface utilisateur moderne** : Streamlit.
 - 🔢 **Évaluation des performances** : Métriques de similarité et pertinence.
 
-## 💪 Contributeurs
+## ✅💪 Contributeurs
 
-Ce projet a été développé par **Donia Tekaya & Mohamed Elyes Maalel**.
+Ce projet a été développé par ** Mohamed Elyes Maalel& Donia Tekaya **.
 
